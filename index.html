@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparkässeli</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" sizes="192x192" href="icon.png">
+</head>
+<body>
+    <div class="container">
+        <h1>Sparkässeli</h1>
+        <div class="coin-inputs">
+            <label>
+                5 Rappen:
+                <input type="number" id="rappen5" value="0">
+            </label>
+            <label>
+                10 Rappen:
+                <input type="number" id="rappen10" value="0">
+            </label>
+            <label>
+                20 Rappen:
+                <input type="number" id="rappen20" value="0">
+            </label>
+            <label>
+                50 Rappen:
+                <input type="number" id="rappen50" value="0">
+            </label>
+            <label>
+                1 Franken:
+                <input type="number" id="franken1" value="0">
+            </label>
+            <label>
+                2 Franken:
+                <input type="number" id="franken2" value="0">
+            </label>
+            <label>
+                5 Franken:
+                <input type="number" id="franken5" value="0">
+            </label>
+        </div>
+        <button onclick="calculateTotal()">Berechne Betrag</button>
+        <h2>Gesamtbetrag: <span id="totalAmount">0</span> CHF</h2>
+        <button onclick="saveProgress()">Fortschritt speichern</button>
+        <button onclick="loadProgress()">Fortschritt laden</button>
+        <h2>Sparziele</h2>
+        <div id="savingsGoals"></div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

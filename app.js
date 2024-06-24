@@ -1,4 +1,7 @@
-const goals = [20, 50, 75, 100, 125, 150, 200];
+const goals = [];
+for (let i = 50; i <= 500; i += 50) {
+    goals.push(i);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const savingsGoalsDiv = document.getElementById('savingsGoals');

@@ -1,60 +1,76 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f2f5;
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
 }
 
 .container {
     max-width: 600px;
     width: 100%;
-    padding: 20px;
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    text-align: center;
+    overflow: hidden;
+    padding: 20px;
 }
 
 h1 {
     margin-bottom: 20px;
+    font-size: 24px;
     color: #007bff;
+    text-align: center;
 }
 
 .coin-inputs {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.coin-inputs label {
+.input-group {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
 }
 
-.coin-inputs input {
-    width: 50px;
-    padding: 5px;
+.input-group label {
+    font-size: 16px;
+    color: #333;
+}
+
+.input-group input {
+    width: 100px;
+    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
     text-align: right;
+    font-size: 16px;
+    color: #333;
 }
 
 .btn {
     display: block;
-    width: calc(100% - 40px);
-    padding: 10px;
+    width: 100%;
+    padding: 15px;
     background-color: #007bff;
     color: #ffffff;
     border: none;
     cursor: pointer;
-    margin: 10px auto;
     border-radius: 5px;
+    margin: 15px 0;
+    font-size: 16px;
     transition: background-color 0.3s ease;
 }
 
@@ -63,7 +79,10 @@ h1 {
 }
 
 h2 {
-    margin-top: 20px;
+    font-size: 20px;
+    color: #333;
+    margin: 20px 0;
+    text-align: center;
 }
 
 #savingsGoals {
@@ -77,9 +96,8 @@ h2 {
     padding: 10px;
     background-color: #e0e0e0;
     border-radius: 5px;
-    flex: 1;
+    flex: 1 1 calc(50% - 20px);
     text-align: center;
-    margin: 5px;
     transition: background-color 0.3s ease;
 }
 

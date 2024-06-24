@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+.coin-inputs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.coin-inputs label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+#savingsGoals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.goal {
+    padding: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    flex: 1;
+    text-align: center;
+}
+
+.goal.achieved {
+    background-color: rgba(255, 255, 0, 0.5);
+}

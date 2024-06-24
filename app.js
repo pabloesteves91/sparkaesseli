@@ -53,10 +53,13 @@ function saveProgress() {
         totalAmount: document.getElementById('totalAmount').innerText
     };
     const progressString = JSON.stringify(progress);
+    const date = new Date();
+    const timestamp = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}_${date.getHours().toString().padStart(2, '0')}-${date.getMinutes().toString().padStart(2, '0')}-${date.getSeconds().toString().padStart(2, '0')}`;
+    const filename = `progress_${timestamp}.sparen`;
     const blob = new Blob([progressString], { type: 'application/json' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'progress.sparen';
+    link.download = filename;
     link.click();
 }
 

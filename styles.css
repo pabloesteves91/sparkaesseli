@@ -26,13 +26,6 @@ body {
     margin-top: 50px;
 }
 
-.logo {
-    width: 50px;
-    height: 50px;
-    vertical-align: middle;
-    margin-right: 10px;
-}
-
 h1 {
     font-size: 40px;
     color: #17a2b8;
@@ -57,75 +50,74 @@ h1 {
 }
 
 .input-group input {
-    font-size: 20px;
-    width: 100px;
+    width: 60px;
     padding: 5px;
+    font-size: 18px;
 }
 
-.btn {
-    display: inline-block;
-    margin: 10px;
+button {
     padding: 10px 20px;
     font-size: 18px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 .calculate-btn {
     background-color: #28a745;
-    color: #ffffff;
+    color: white;
 }
 
 .withdraw-btn {
     background-color: #dc3545;
-    color: #ffffff;
+    color: white;
+    margin-top: 20px;
 }
 
 .save-btn, .load-btn {
     background-color: #007bff;
-    color: #ffffff;
+    color: white;
+    margin: 10px;
 }
 
 #savingsGoalsTable {
     width: 100%;
     margin-top: 20px;
+    border-collapse: separate;
     border-spacing: 10px;
 }
 
 #savingsGoalsTable td {
-    background-color: #f8f9fa;
+    background-color: #e9ecef;
     border-radius: 10px;
-    padding: 15px;
-    text-align: center;
+    padding: 10px;
     font-size: 18px;
-    transition: background-color 0.3s;
+    text-align: center;
+    width: 50%;
 }
 
-#savingsGoalsTable td.achieved {
+.achieved {
     background-color: #28a745;
-    color: #ffffff;
+    color: white;
 }
 
 .history {
-    margin-top: 30px;
+    margin-top: 20px;
+}
+
+.history-content {
+    display: none;
     text-align: left;
+    margin-top: 10px;
 }
 
-.history button {
-    margin-bottom: 10px;
-    background-color: #17a2b8;
-    color: #ffffff;
-}
-
-#historyList {
+.history-content ul {
     list-style-type: none;
     padding-left: 0;
 }
 
-#historyList li {
-    background-color: #f8f9fa;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 5px;
+.toggle-history-btn {
+    background-color: #17a2b8;
+    color: white;
 }

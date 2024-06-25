@@ -1,8 +1,9 @@
 const goals = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500];
-let history = [];
+let changeLog = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     loadProgress();
+    updateChangeLog();
 });
 
 function calculateTotal() {
@@ -29,39 +30,6 @@ function calculateTotal() {
     });
 }
 
-function withdrawAmount() {
-    const withdrawAmount = parseFloat(document.getElementById('withdrawAmount').value) || 0;
-    let totalAmount = parseFloat(document.getElementById('totalAmount').innerText);
-
-    if (withdrawAmount > 0 && withdrawAmount <= totalAmount) {
-        totalAmount -= withdrawAmount;
-        document.getElementById('totalAmount').innerText = totalAmount.toFixed(2);
-
-        const historyEntry = `Entnommen: ${withdrawAmount.toFixed(2)} CHF - Neuer Gesamtbetrag: ${totalAmount.toFixed(2)} CHF`;
-        history.push(historyEntry);
-        updateHistory();
-
-        goals.forEach(goal => {
-            const goalElement = document.getElementById(`goal-${goal}`);
-            if (totalAmount >= goal) {
-                goalElement.classList.add('achieved');
-            } else {
-                goalElement.classList.remove('achieved');
-            }
-        });
-    }
-}
-
-function updateHistory() {
-    const historyContent = document.getElementById('historyContent');
-    historyContent.innerHTML = history.map(entry => `<div class="history-item">${entry}</div>`).join('');
-}
-
-function toggleHistory() {
-    const historyContent = document.getElementById('historyContent');
-    historyContent.classList.toggle('visible');
-}
-
 function saveProgress() {
     const progress = {
         rappen5: document.getElementById('rappen5').value,
@@ -72,7 +40,7 @@ function saveProgress() {
         franken2: document.getElementById('franken2').value,
         franken5: document.getElementById('franken5').value,
         totalAmount: document.getElementById('totalAmount').innerText,
-        history: history
+        changeLog: changeLog
     };
     const progressString = JSON.stringify(progress);
     const date = new Date();
@@ -103,12 +71,49 @@ function loadProgress() {
                 document.getElementById('franken2').value = progress.franken2;
                 document.getElementById('franken5').value = progress.franken5;
                 document.getElementById('totalAmount').innerText = progress.totalAmount;
-                history = progress.history || [];
-                updateHistory();
+                changeLog = progress.changeLog || [];
                 calculateTotal(); // Update the goals based on loaded progress
+                updateChangeLog();
             };
             reader.readAsText(file);
         }
     };
     input.click();
+}
+
+function withdrawAmount() {
+    const amount = parseFloat(prompt("Geben Sie den Betrag ein, den Sie entnehmen möchten:"));
+    if (!isNaN(amount) && amount > 0) {
+        const totalElement = document.getElementById('totalAmount');
+        let totalAmount = parseFloat(totalElement.innerText);
+        if (amount <= totalAmount) {
+            totalAmount -= amount;
+            totalElement.innerText = totalAmount.toFixed(2);
+            goals.forEach(goal => {
+                const goalElement = document.getElementById(`goal-${goal}`);
+                if (totalAmount >= goal) {
+                    goalElement.classList.add('achieved');
+                } else {
+                    goalElement.classList.remove('achieved');
+                }
+            });
+            addToChangeLog(`Entnommen: ${amount.toFixed(2)} CHF`);
+        } else {
+            alert("Der Betrag überschreitet den verfügbaren Gesamtbetrag.");
+        }
+    } else {
+        alert("Bitte geben Sie einen gültigen Betrag ein.");
+    }
+}
+
+function addToChangeLog(message) {
+    const date = new Date();
+    const timestamp = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+    changeLog.push(`${timestamp}: ${message}`);
+    updateChangeLog();
+}
+
+function updateChangeLog() {
+    const changeLogContainer = document.getElementById('changeLog');
+    changeLogContainer.innerHTML = changeLog.map(entry => `<p>${entry}</p>`).join('');
 }

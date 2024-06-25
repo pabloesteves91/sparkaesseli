@@ -41,8 +41,10 @@
                 <input type="number" id="franken5" value="0">
             </div>
         </div>
-        <button class="btn calculate-btn" onclick="calculateTotal()">Berechne Betrag</button>
-        <button class="btn withdraw-btn" onclick="withdrawAmount()">Betrag entnehmen</button>
+        <div class="buttons">
+            <button class="btn calculate-btn" onclick="calculateTotal()">Berechne Betrag</button>
+            <button class="btn withdraw-btn" onclick="withdrawAmount()">Betrag entnehmen</button>
+        </div>
         <h2>Gesamtbetrag: <span id="totalAmount">0</span> CHF</h2>
         <div class="buttons">
             <button class="btn save-btn" onclick="saveProgress()">Fortschritt speichern</button>
@@ -53,24 +55,27 @@
             <tr>
                 <td id="goal-50">50 CHF</td>
                 <td id="goal-100">100 CHF</td>
-                <td id="goal-150">150 CHF</td>
-                <td id="goal-200">200 CHF</td>
-                <td id="goal-250">250 CHF</td>
             </tr>
             <tr>
+                <td id="goal-150">150 CHF</td>
+                <td id="goal-200">200 CHF</td>
+            </tr>
+            <tr>
+                <td id="goal-250">250 CHF</td>
                 <td id="goal-300">300 CHF</td>
+            </tr>
+            <tr>
                 <td id="goal-350">350 CHF</td>
                 <td id="goal-400">400 CHF</td>
+            </tr>
+            <tr>
                 <td id="goal-450">450 CHF</td>
                 <td id="goal-500">500 CHF</td>
             </tr>
         </table>
-        <div class="history">
-            <button class="btn toggle-history-btn" onclick="toggleHistory()">Änderungsverlauf anzeigen/verbergen</button>
-            <div id="historyContent" class="history-content">
-                <!-- Änderungsverlauf wird hier eingefügt -->
-            </div>
-        </div>
+        <h2>Änderungsverlauf</h2>
+        <button class="btn toggle-history-btn" onclick="toggleHistory()">Verlauf anzeigen/ausblenden</button>
+        <div id="historyContent" class="history-content"></div>
     </div>
     <script src="app.js"></script>
 </body>

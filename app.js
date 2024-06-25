@@ -3,6 +3,7 @@ const history = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     loadProgress();
+    updateGoals(parseFloat(document.getElementById('totalAmount').innerText));
 });
 
 function calculateTotal() {
@@ -96,7 +97,7 @@ function loadProgress() {
                 document.getElementById('totalAmount').innerText = progress.totalAmount;
                 history.splice(0, history.length, ...progress.history); // Load history
                 updateHistory(); // Update history display
-                calculateTotal(); // Update the goals based on loaded progress
+                updateGoals(parseFloat(progress.totalAmount)); // Update the goals based on loaded progress
             };
             reader.readAsText(file);
         }

@@ -1,5 +1,3 @@
-const goals = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500];
-
 document.addEventListener('DOMContentLoaded', () => {
     loadProgress();
 });
@@ -17,15 +15,6 @@ function calculateTotal() {
         (rappen50 * 0.5) + (franken1 * 1) + (franken2 * 2) + (franken5 * 5);
 
     document.getElementById('totalAmount').innerText = totalAmount.toFixed(2);
-
-    goals.forEach(goal => {
-        const goalElement = document.getElementById(`goal-${goal}`);
-        if (totalAmount >= goal) {
-            goalElement.classList.add('achieved');
-        } else {
-            goalElement.classList.remove('achieved');
-        }
-    });
 }
 
 function saveProgress() {

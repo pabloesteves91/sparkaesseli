@@ -1,9 +1,9 @@
 const goals = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500];
-const history = [];
+let historyVisible = false;
 
 document.addEventListener('DOMContentLoaded', () => {
     loadProgress();
-    updateGoals(parseFloat(document.getElementById('totalAmount').innerText));
+    updateGoals();
 });
 
 function calculateTotal() {
@@ -19,31 +19,33 @@ function calculateTotal() {
         (rappen50 * 0.5) + (franken1 * 1) + (franken2 * 2) + (franken5 * 5);
 
     document.getElementById('totalAmount').innerText = totalAmount.toFixed(2);
-
     updateGoals(totalAmount);
-    addHistoryEntry(`Hinzugefügt: ${totalAmount.toFixed(2)} CHF`);
 }
 
 function withdrawAmount() {
-    const amount = parseFloat(prompt('Wie viel möchten Sie abheben?'));
-    if (!isNaN(amount) && amount > 0) {
-        const totalElement = document.getElementById('totalAmount');
-        const currentTotal = parseFloat(totalElement.innerText);
-        const newTotal = currentTotal - amount;
-
-        if (newTotal >= 0) {
-            totalElement.innerText = newTotal.toFixed(2);
-            addHistoryEntry(`Abgehoben: ${amount.toFixed(2)} CHF`);
-            updateGoals(newTotal);
-        } else {
-            alert('Sie haben nicht genügend Geld in der Kasse.');
-        }
-    } else {
-        alert('Bitte geben Sie einen gültigen Betrag ein.');
+    const amountToWithdraw = parseFloat(prompt("Wie viel möchten Sie entnehmen?"));
+    if (isNaN(amountToWithdraw) || amountToWithdraw <= 0) {
+        alert("Bitte geben Sie einen gültigen Betrag ein.");
+        return;
     }
+
+    const currentTotal = parseFloat(document.getElementById('totalAmount').innerText);
+    if (amountToWithdraw > currentTotal) {
+        alert("Sie haben nicht genug Geld in der Kasse.");
+        return;
+    }
+
+    const newTotal = currentTotal - amountToWithdraw;
+    document.getElementById('totalAmount').innerText = newTotal.toFixed(2);
+    updateGoals(newTotal);
+    addHistoryEntry(-amountToWithdraw);
 }
 
 function updateGoals(totalAmount) {
+    if (typeof totalAmount === 'undefined') {
+        totalAmount = parseFloat(document.getElementById('totalAmount').innerText);
+    }
+
     goals.forEach(goal => {
         const goalElement = document.getElementById(`goal-${goal}`);
         if (totalAmount >= goal) {
@@ -64,7 +66,7 @@ function saveProgress() {
         franken2: document.getElementById('franken2').value,
         franken5: document.getElementById('franken5').value,
         totalAmount: document.getElementById('totalAmount').innerText,
-        history: history
+        history: document.getElementById('historyContent').innerHTML
     };
     const progressString = JSON.stringify(progress);
     const date = new Date();
@@ -95,9 +97,8 @@ function loadProgress() {
                 document.getElementById('franken2').value = progress.franken2;
                 document.getElementById('franken5').value = progress.franken5;
                 document.getElementById('totalAmount').innerText = progress.totalAmount;
-                history.splice(0, history.length, ...progress.history); // Load history
-                updateHistory(); // Update history display
-                updateGoals(parseFloat(progress.totalAmount)); // Update the goals based on loaded progress
+                document.getElementById('historyContent').innerHTML = progress.history;
+                calculateTotal(); // Update the goals based on loaded progress
             };
             reader.readAsText(file);
         }
@@ -105,19 +106,15 @@ function loadProgress() {
     input.click();
 }
 
-function addHistoryEntry(entry) {
-    const date = new Date();
-    const timestamp = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
-    history.push(`${timestamp}: ${entry}`);
-    updateHistory();
-}
-
-function updateHistory() {
+function addHistoryEntry(amount) {
     const historyContent = document.getElementById('historyContent');
-    historyContent.innerHTML = '<ul>' + history.map(entry => `<li>${entry}</li>`).join('') + '</ul>';
+    const date = new Date();
+    const timestamp = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, ‘0’)} ${date.getHours().toString().padStart(2, ‘0’)}:${date.getMinutes().toString().padStart(2, ‘0’)}; const entry = document.createElement('li'); entry.textContent = ${timestamp}: ${amount > 0 ? ‘Zugabe’ : ‘Entnahme’} von ${Math.abs(amount)} CHF`;
+historyContent.appendChild(entry);
 }
 
 function toggleHistory() {
-    const historyContent = document.getElementById('historyContent');
-    historyContent.style.display = historyContent.style.display === 'none' ? 'block' : 'none';
+const historyContent = document.getElementById(‘historyContent’);
+historyVisible = !historyVisible;
+historyContent.style.display = historyVisible ? ‘block’ : ‘none’;
 }

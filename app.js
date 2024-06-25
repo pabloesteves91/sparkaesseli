@@ -1,5 +1,5 @@
 const goals = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500];
-let history = [];
+const history = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     loadProgress();
@@ -27,48 +27,36 @@ function calculateTotal() {
             goalElement.classList.remove('achieved');
         }
     });
-
-    addHistoryEntry(`Gesamtbetrag berechnet: ${totalAmount.toFixed(2)} CHF`);
 }
 
 function withdrawAmount() {
-    const totalAmountElement = document.getElementById('totalAmount');
-    let totalAmount = parseFloat(totalAmountElement.innerText);
-    const amountToWithdraw = prompt("Betrag eingeben, der entnommen werden soll:");
+    const amount = parseFloat(prompt('Wie viel möchten Sie abheben?'));
+    if (!isNaN(amount) && amount > 0) {
+        const totalElement = document.getElementById('totalAmount');
+        const currentTotal = parseFloat(totalElement.innerText);
+        const newTotal = currentTotal - amount;
 
-    if (amountToWithdraw !== null && !isNaN(amountToWithdraw) && amountToWithdraw > 0) {
-        totalAmount -= parseFloat(amountToWithdraw);
-        totalAmountElement.innerText = totalAmount.toFixed(2);
-        addHistoryEntry(`Betrag entnommen: ${amountToWithdraw} CHF`);
-        updateGoals(totalAmount);
-    }
-}
-
-function addHistoryEntry(entry) {
-    const date = new Date();
-    const timestamp = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
-    const historyEntry = `${timestamp} - ${entry}`;
-    history.push(historyEntry);
-    updateHistoryDisplay();
-}
-
-function updateHistoryDisplay() {
-    const historyList = document.getElementById('historyList');
-    historyList.innerHTML = '';
-    history.forEach(entry => {
-        const li = document.createElement('li');
-        li.textContent = entry;
-        historyList.appendChild(li);
-    });
-}
-
-function toggleHistory() {
-    const historyContent = document.getElementById('historyContent');
-    if (historyContent.style.display === 'none') {
-        historyContent.style.display = 'block';
+        if (newTotal >= 0) {
+            totalElement.innerText = newTotal.toFixed(2);
+            addHistoryEntry(`Abgehoben: ${amount.toFixed(2)} CHF`);
+            updateGoals(newTotal);
+        } else {
+            alert('Sie haben nicht genügend Geld in der Kasse.');
+        }
     } else {
-        historyContent.style.display = 'none';
+        alert('Bitte geben Sie einen gültigen Betrag ein.');
     }
+}
+
+function updateGoals(totalAmount) {
+    goals.forEach(goal => {
+        const goalElement = document.getElementById(`goal-${goal}`);
+        if (totalAmount >= goal) {
+            goalElement.classList.add('achieved');
+        } else {
+            goalElement.classList.remove('achieved');
+        }
+    });
 }
 
 function saveProgress() {
@@ -112,9 +100,9 @@ function loadProgress() {
                 document.getElementById('franken2').value = progress.franken2;
                 document.getElementById('franken5').value = progress.franken5;
                 document.getElementById('totalAmount').innerText = progress.totalAmount;
-                history = progress.history || [];
-                calculateTotal(); // Update the goals based on loaded progress
+                history.push(...progress.history);
                 updateHistoryDisplay();
+                calculateTotal(); // Update the goals based on loaded progress
             };
             reader.readAsText(file);
         }
@@ -122,13 +110,23 @@ function loadProgress() {
     input.click();
 }
 
-function updateGoals(totalAmount) {
-    goals.forEach(goal => {
-        const goalElement = document.getElementById(`goal-${goal}`);
-        if (totalAmount >= goal) {
-            goalElement.classList.add('achieved');
-        } else {
-            goalElement.classList.remove('achieved');
-        }
-    });
+function addHistoryEntry(entry) {
+    const date = new Date();
+    const timestamp = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+    history.push(`${timestamp} - ${entry}`);
+    updateHistoryDisplay();
+}
+
+function updateHistoryDisplay() {
+    const historyContent = document.getElementById('historyContent');
+    historyContent.innerHTML = '<ul>' + history.map(entry => `<li>${entry}</li>`).join('') + '</ul>';
+}
+
+function toggleHistory() {
+    const historyContent = document.getElementById('historyContent');
+    if (historyContent.style.display === 'none' || historyContent.style.display === '') {
+        historyContent.style.display = 'block';
+    } else {
+        historyContent.style.display = 'none';
+    }
 }

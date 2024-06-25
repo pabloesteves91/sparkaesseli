@@ -1,19 +1,6 @@
-const goals = [];
-for (let i = 50; i <= 500; i += 50) {
-    goals.push(i);
-}
+const goals = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500];
 
 document.addEventListener('DOMContentLoaded', () => {
-    const savingsGoalsDiv = document.getElementById('savingsGoals');
-    goals.forEach(goal => {
-        const goalElement = document.createElement('div');
-        goalElement.classList.add('goal');
-        goalElement.innerText = `${goal} CHF`;
-        goalElement.id = `goal-${goal}`;
-        savingsGoalsDiv.appendChild(goalElement);
-    });
-
-    // Load saved progress if available
     loadProgress();
 });
 

@@ -49,48 +49,87 @@ h1 {
     font-size: 20px;
 }
 
-.input-group input {
-    width: 100px;
-    padding: 5px;
-    font-size: 18px;
-    margin-left: 10px;
-}
-
 .btn {
-    padding: 10px 20px;
-    margin-top: 20px;
-    font-size: 18px;
-    color: #fff;
     background-color: #17a2b8;
+    color: #ffffff;
     border: none;
+    padding: 10px 20px;
+    font-size: 18px;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #138496;
-}
-
-#changeLog {
-    display: none;
     margin-top: 20px;
 }
 
-#changeLog.visible {
+.calculate-btn {
+    background-color: #28a745; /* Green */
+}
+
+.withdraw-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.space {
+    height: 20px;
+}
+
+#savingsGoalsTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
+#savingsGoalsTable td {
+    background-color: #e9ecef;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+}
+
+#savingsGoalsTable .achieved {
+    background-color: #28a745;
+    color: white;
+}
+
+.history {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.history-content {
+    display: none;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.history-item {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.toggle-history-btn {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-history-btn::after {
+    content: "▼";
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+.history-content.visible {
     display: block;
 }
 
-.toggle-button {
-    color: #007bff;
-    cursor: pointer;
-}
-
-.toggle-button:hover {
-    text-decoration: underline;
-}
-
-.achieved {
-    background-color: #d4edda;
-    color: #155724;
-    font-weight: bold;
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
 }

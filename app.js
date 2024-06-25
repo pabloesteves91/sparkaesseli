@@ -1,4 +1,5 @@
 const goals = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500];
+const changeLog = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     loadProgress();
@@ -26,6 +27,34 @@ function calculateTotal() {
             goalElement.classList.remove('achieved');
         }
     });
+
+    logChange(`Betrag berechnet: ${totalAmount.toFixed(2)} CHF`);
+}
+
+function withdrawAmount() {
+    const withdraw = parseFloat(document.getElementById('withdrawAmount').value) || 0;
+    const currentTotal = parseFloat(document.getElementById('totalAmount').innerText);
+    const newTotal = currentTotal - withdraw;
+
+    if (newTotal >= 0) {
+        document.getElementById('totalAmount').innerText = newTotal.toFixed(2);
+        logChange(`Betrag entnommen: ${withdraw.toFixed(2)} CHF`);
+    } else {
+        alert("Nicht genügend Guthaben.");
+    }
+}
+
+function logChange(message) {
+    const changeLogList = document.getElementById('changeLogList');
+    const listItem = document.createElement('li');
+    listItem.innerText = message;
+    changeLogList.appendChild(listItem);
+    changeLog.push(message);
+}
+
+function toggleChangeLog() {
+    const changeLogDiv = document.getElementById('changeLog');
+    changeLogDiv.classList.toggle('visible');
 }
 
 function saveProgress() {
@@ -37,7 +66,8 @@ function saveProgress() {
         franken1: document.getElementById('franken1').value,
         franken2: document.getElementById('franken2').value,
         franken5: document.getElementById('franken5').value,
-        totalAmount: document.getElementById('totalAmount').innerText
+        totalAmount: document.getElementById('totalAmount').innerText,
+        changeLog: changeLog
     };
     const progressString = JSON.stringify(progress);
     const date = new Date();
@@ -68,6 +98,7 @@ function loadProgress() {
                 document.getElementById('franken2').value = progress.franken2;
                 document.getElementById('franken5').value = progress.franken5;
                 document.getElementById('totalAmount').innerText = progress.totalAmount;
+                progress.changeLog.forEach(log => logChange(log));
                 calculateTotal(); // Update the goals based on loaded progress
             };
             reader.readAsText(file);

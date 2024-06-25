@@ -4,29 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sparkässeli</title>
-    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" sizes="192x192" href="icon.png">
 </head>
 <body>
     <div class="container">
-        <h1>Ich bin gereist</h1>
-        <div class="input-group">
-            <label for="amount">Betrag hinzufügen/entnehmen:</label>
-            <input type="number" id="amount" placeholder="Betrag eingeben">
+        <h1>Sparkässeli</h1>
+        <div class="coin-inputs">
+            <div class="input-group">
+                <label for="rappen5">5 Rappen:</label>
+                <input type="number" id="rappen5" value="0">
+            </div>
+            <div class="input-group">
+                <label for="rappen10">10 Rappen:</label>
+                <input type="number" id="rappen10" value="0">
+            </div>
+            <div class="input-group">
+                <label for="rappen20">20 Rappen:</label>
+                <input type="number" id="rappen20" value="0">
+            </div>
+            <div class="input-group">
+                <label for="rappen50">50 Rappen:</label>
+                <input type="number" id="rappen50" value="0">
+            </div>
+            <div class="input-group">
+                <label for="franken1">1 Franken:</label>
+                <input type="number" id="franken1" value="0">
+            </div>
+            <div class="input-group">
+                <label for="franken2">2 Franken:</label>
+                <input type="number" id="franken2" value="0">
+            </div>
+            <div class="input-group">
+                <label for="franken5">5 Franken:</label>
+                <input type="number" id="franken5" value="0">
+            </div>
         </div>
+        <button class="btn calculate-btn" onclick="calculateTotal()">Berechne Betrag</button>
         <div class="input-group">
-            <button onclick="addAmount()">Hinzufügen</button>
+            <label for="withdrawAmount">Betrag entnehmen:</label>
+            <input type="number" id="withdrawAmount" value="0">
             <button onclick="withdrawAmount()">Entnehmen</button>
         </div>
-        <h2>Gesamtbetrag: <span id="totalAmount">0</span> €</h2>
+        <h2>Gesamtbetrag: <span id="totalAmount">0</span> CHF</h2>
+        <div class="buttons">
+            <button class="btn save-btn" onclick="saveProgress()">Fortschritt speichern</button>
+            <button class="btn load-btn" onclick="loadProgress()">Fortschritt laden</button>
+        </div>
         <div>
             <span class="toggle-button" onclick="toggleChangeLog()">Änderungsverlauf anzeigen</span>
         </div>
-        <div id="changeLog">
+        <div id="changeLog" class="hidden">
             <h3>Änderungsverlauf:</h3>
             <ul id="changeLogList"></ul>
         </div>
+        <h2>Sparziele</h2>
+        <table id="savingsGoalsTable">
+            <tr>
+                <td id="goal-50">50 CHF</td>
+                <td id="goal-100">100 CHF</td>
+                <td id="goal-150">150 CHF</td>
+                <td id="goal-200">200 CHF</td>
+                <td id="goal-250">250 CHF</td>
+            </tr>
+            <tr>
+                <td id="goal-300">300 CHF</td>
+                <td id="goal-350">350 CHF</td>
+                <td id="goal-400">400 CHF</td>
+                <td id="goal-450">450 CHF</td>
+                <td id="goal-500">500 CHF</td>
+            </tr>
+        </table>
     </div>
-    <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

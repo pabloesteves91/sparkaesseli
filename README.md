@@ -4,7 +4,8 @@ Willkommen bei Sparkässeli! Diese Web-App hilft Ihnen, Ihre Sparziele zu verwal
 
 ## Zugriff auf die Web-App
 
-Sie können auf die Sparkässeli-Web-App über den folgenden Link zugreifen: [Sparkässeli Web-App]
+Sie können auf die Sparkässeli-Web-App über den folgenden Hyperlink zugreifen: [Sparkässeli Web-App](https://pabloesteves91.github.io/sparkaesseli).
+
 
 ## Hinzufügen zu Ihrem Home-Bildschirm
 

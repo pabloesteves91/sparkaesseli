@@ -1,5 +1,5 @@
 const goals = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500];
-const changeLog = [];
+let history = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     loadProgress();
@@ -27,34 +27,39 @@ function calculateTotal() {
             goalElement.classList.remove('achieved');
         }
     });
-
-    logChange(`Betrag berechnet: ${totalAmount.toFixed(2)} CHF`);
 }
 
 function withdrawAmount() {
-    const withdraw = parseFloat(document.getElementById('withdrawAmount').value) || 0;
-    const currentTotal = parseFloat(document.getElementById('totalAmount').innerText);
-    const newTotal = currentTotal - withdraw;
+    const withdrawAmount = parseFloat(document.getElementById('withdrawAmount').value) || 0;
+    let totalAmount = parseFloat(document.getElementById('totalAmount').innerText);
 
-    if (newTotal >= 0) {
-        document.getElementById('totalAmount').innerText = newTotal.toFixed(2);
-        logChange(`Betrag entnommen: ${withdraw.toFixed(2)} CHF`);
-    } else {
-        alert("Nicht genügend Guthaben.");
+    if (withdrawAmount > 0 && withdrawAmount <= totalAmount) {
+        totalAmount -= withdrawAmount;
+        document.getElementById('totalAmount').innerText = totalAmount.toFixed(2);
+
+        const historyEntry = `Entnommen: ${withdrawAmount.toFixed(2)} CHF - Neuer Gesamtbetrag: ${totalAmount.toFixed(2)} CHF`;
+        history.push(historyEntry);
+        updateHistory();
+
+        goals.forEach(goal => {
+            const goalElement = document.getElementById(`goal-${goal}`);
+            if (totalAmount >= goal) {
+                goalElement.classList.add('achieved');
+            } else {
+                goalElement.classList.remove('achieved');
+            }
+        });
     }
 }
 
-function logChange(message) {
-    const changeLogList = document.getElementById('changeLogList');
-    const listItem = document.createElement('li');
-    listItem.innerText = message;
-    changeLogList.appendChild(listItem);
-    changeLog.push(message);
+function updateHistory() {
+    const historyContent = document.getElementById('historyContent');
+    historyContent.innerHTML = history.map(entry => `<div class="history-item">${entry}</div>`).join('');
 }
 
-function toggleChangeLog() {
-    const changeLogDiv = document.getElementById('changeLog');
-    changeLogDiv.classList.toggle('visible');
+function toggleHistory() {
+    const historyContent = document.getElementById('historyContent');
+    historyContent.classList.toggle('visible');
 }
 
 function saveProgress() {
@@ -67,7 +72,7 @@ function saveProgress() {
         franken2: document.getElementById('franken2').value,
         franken5: document.getElementById('franken5').value,
         totalAmount: document.getElementById('totalAmount').innerText,
-        changeLog: changeLog
+        history: history
     };
     const progressString = JSON.stringify(progress);
     const date = new Date();
@@ -98,7 +103,8 @@ function loadProgress() {
                 document.getElementById('franken2').value = progress.franken2;
                 document.getElementById('franken5').value = progress.franken5;
                 document.getElementById('totalAmount').innerText = progress.totalAmount;
-                progress.changeLog.forEach(log => logChange(log));
+                history = progress.history || [];
+                updateHistory();
                 calculateTotal(); // Update the goals based on loaded progress
             };
             reader.readAsText(file);

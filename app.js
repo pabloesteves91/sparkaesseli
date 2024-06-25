@@ -19,14 +19,8 @@ function calculateTotal() {
 
     document.getElementById('totalAmount').innerText = totalAmount.toFixed(2);
 
-    goals.forEach(goal => {
-        const goalElement = document.getElementById(`goal-${goal}`);
-        if (totalAmount >= goal) {
-            goalElement.classList.add('achieved');
-        } else {
-            goalElement.classList.remove('achieved');
-        }
-    });
+    updateGoals(totalAmount);
+    addHistoryEntry(`Hinzugefügt: ${totalAmount.toFixed(2)} CHF`);
 }
 
 function withdrawAmount() {
@@ -100,8 +94,8 @@ function loadProgress() {
                 document.getElementById('franken2').value = progress.franken2;
                 document.getElementById('franken5').value = progress.franken5;
                 document.getElementById('totalAmount').innerText = progress.totalAmount;
-                history.push(...progress.history);
-                updateHistoryDisplay();
+                history.splice(0, history.length, ...progress.history); // Load history
+                updateHistory(); // Update history display
                 calculateTotal(); // Update the goals based on loaded progress
             };
             reader.readAsText(file);
@@ -112,21 +106,17 @@ function loadProgress() {
 
 function addHistoryEntry(entry) {
     const date = new Date();
-    const timestamp = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
-    history.push(`${timestamp} - ${entry}`);
-    updateHistoryDisplay();
+    const timestamp = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+    history.push(`${timestamp}: ${entry}`);
+    updateHistory();
 }
 
-function updateHistoryDisplay() {
+function updateHistory() {
     const historyContent = document.getElementById('historyContent');
     historyContent.innerHTML = '<ul>' + history.map(entry => `<li>${entry}</li>`).join('') + '</ul>';
 }
 
 function toggleHistory() {
     const historyContent = document.getElementById('historyContent');
-    if (historyContent.style.display === 'none' || historyContent.style.display === '') {
-        historyContent.style.display = 'block';
-    } else {
-        historyContent.style.display = 'none';
-    }
+    historyContent.style.display = historyContent.style.display === 'none' ? 'block' : 'none';
 }

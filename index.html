@@ -1,37 +1,53 @@
-<div class="container">
-    <h1 style="text-align:center;">Sparkässeli</h1>
-    <div class="coin-inputs">
-        <div class="input-group"><label for="rappen5">5 Rappen:</label> <input type="number" id="rappen5" value="0"></div>
-        <div class="input-group"><label for="rappen10">10 Rappen:</label> <input type="number" id="rappen10" value="0"></div>
-        <div class="input-group"><label for="rappen20">20 Rappen:</label> <input type="number" id="rappen20" value="0"></div>
-        <div class="input-group"><label for="rappen50">50 Rappen:</label> <input type="number" id="rappen50" value="0"></div>
-        <div class="input-group"><label for="franken1">1 Franken:</label> <input type="number" id="franken1" value="0"></div>
-        <div class="input-group"><label for="franken2">2 Franken:</label> <input type="number" id="franken2" value="0"></div>
-        <div class="input-group"><label for="franken5">5 Franken:</label> <input type="number" id="franken5" value="0"></div>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparkässeli</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" sizes="192x192" href="icon.png">
+</head>
+<body>
+    <div class="container">
+        <h1>Sparkässeli</h1>
+        <div class="coin-inputs">
+            <div class="input-group">
+                <label for="rappen5">5 Rappen:</label>
+                <input type="number" id="rappen5" value="0">
+            </div>
+            <div class="input-group">
+                <label for="rappen10">10 Rappen:</label>
+                <input type="number" id="rappen10" value="0">
+            </div>
+            <div class="input-group">
+                <label for="rappen20">20 Rappen:</label>
+                <input type="number" id="rappen20" value="0">
+            </div>
+            <div class="input-group">
+                <label for="rappen50">50 Rappen:</label>
+                <input type="number" id="rappen50" value="0">
+            </div>
+            <div class="input-group">
+                <label for="franken1">1 Franken:</label>
+                <input type="number" id="franken1" value="0">
+            </div>
+            <div class="input-group">
+                <label for="franken2">2 Franken:</label>
+                <input type="number" id="franken2" value="0">
+            </div>
+            <div class="input-group">
+                <label for="franken5">5 Franken:</label>
+                <input type="number" id="franken5" value="0">
+            </div>
+        </div>
+        <button class="btn" onclick="calculateTotal()">Berechne Betrag</button>
+        <h2>Gesamtbetrag: <span id="totalAmount">0</span> CHF</h2>
+        <div class="buttons">
+            <button class="btn" onclick="saveProgress()">Fortschritt speichern</button>
+            <button class="btn" onclick="loadProgress()">Fortschritt laden</button>
+        </div>
     </div>
-    <p><button class="btn" onclick="calculateTotal()">Berechne Betrag</button></p>
-    <h2>Gesamtbetrag: <span id="totalAmount">0</span> CHF</h2>
-    <p><button class="btn" onclick="saveProgress()">Fortschritt speichern</button> <button class="btn" onclick="loadProgress()">Fortschritt laden</button></p>
-    <h2>Sparziele</h2>
-    <figure class="table">
-        <table id="savingsGoalsTable">
-            <tbody>
-                <tr>
-                    <td id="goal-50">50 CHF</td>
-                    <td id="goal-100">100 CHF</td>
-                    <td id="goal-150">150 CHF</td>
-                    <td id="goal-200">200 CHF</td>
-                    <td id="goal-250">250 CHF</td>
-                </tr>
-                <tr>
-                    <td id="goal-300">300 CHF</td>
-                    <td id="goal-350">350 CHF</td>
-                    <td id="goal-400">400 CHF</td>
-                    <td id="goal-450">450 CHF</td>
-                    <td id="goal-500">500 CHF</td>
-                </tr>
-            </tbody>
-        </table>
-    </figure>
-</div>
-<script src="app.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

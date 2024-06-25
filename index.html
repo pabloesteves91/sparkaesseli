@@ -42,22 +42,16 @@
             </div>
         </div>
         <button class="btn calculate-btn" onclick="calculateTotal()">Berechne Betrag</button>
-        <div class="input-group">
+        <div class="space"></div>
+        <div class="withdraw-group">
             <label for="withdrawAmount">Betrag entnehmen:</label>
             <input type="number" id="withdrawAmount" value="0">
-            <button onclick="withdrawAmount()">Entnehmen</button>
+            <button class="btn withdraw-btn" onclick="withdrawAmount()">Entnehmen</button>
         </div>
         <h2>Gesamtbetrag: <span id="totalAmount">0</span> CHF</h2>
         <div class="buttons">
             <button class="btn save-btn" onclick="saveProgress()">Fortschritt speichern</button>
             <button class="btn load-btn" onclick="loadProgress()">Fortschritt laden</button>
-        </div>
-        <div>
-            <span class="toggle-button" onclick="toggleChangeLog()">Änderungsverlauf anzeigen</span>
-        </div>
-        <div id="changeLog" class="hidden">
-            <h3>Änderungsverlauf:</h3>
-            <ul id="changeLogList"></ul>
         </div>
         <h2>Sparziele</h2>
         <table id="savingsGoalsTable">
@@ -76,6 +70,12 @@
                 <td id="goal-500">500 CHF</td>
             </tr>
         </table>
+        <div class="history">
+            <button class="btn toggle-history-btn" onclick="toggleHistory()">Änderungsverlauf</button>
+            <div id="historyContent" class="history-content">
+                <!-- Verlaufsinhalt wird hier eingefügt -->
+            </div>
+        </div>
     </div>
     <script src="app.js"></script>
 </body>

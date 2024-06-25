@@ -20,6 +20,7 @@ function calculateTotal() {
 
     document.getElementById('totalAmount').innerText = totalAmount.toFixed(2);
     updateGoals(totalAmount);
+    addHistoryEntry(totalAmount);
 }
 
 function withdrawAmount() {
@@ -98,7 +99,7 @@ function loadProgress() {
                 document.getElementById('franken5').value = progress.franken5;
                 document.getElementById('totalAmount').innerText = progress.totalAmount;
                 document.getElementById('historyContent').innerHTML = progress.history;
-                calculateTotal(); // Update the goals based on loaded progress
+                updateGoals(progress.totalAmount); // Update the goals based on loaded progress
             };
             reader.readAsText(file);
         }
@@ -109,12 +110,14 @@ function loadProgress() {
 function addHistoryEntry(amount) {
     const historyContent = document.getElementById('historyContent');
     const date = new Date();
-    const timestamp = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, ‘0’)} ${date.getHours().toString().padStart(2, ‘0’)}:${date.getMinutes().toString().padStart(2, ‘0’)}; const entry = document.createElement('li'); entry.textContent = ${timestamp}: ${amount > 0 ? ‘Zugabe’ : ‘Entnahme’} von ${Math.abs(amount)} CHF`;
-historyContent.appendChild(entry);
+    const timestamp = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+    const entry = document.createElement('li');
+    entry.textContent = `${timestamp}: ${amount > 0 ? 'Zugabe' : 'Entnahme'} von ${Math.abs(amount)} CHF`;
+    historyContent.appendChild(entry);
 }
 
 function toggleHistory() {
-const historyContent = document.getElementById(‘historyContent’);
-historyVisible = !historyVisible;
-historyContent.style.display = historyVisible ? ‘block’ : ‘none’;
+    const historyContent = document.getElementById('historyContent');
+    historyVisible = !historyVisible;
+    historyContent.style.display = historyVisible ? 'block' : 'none';
 }

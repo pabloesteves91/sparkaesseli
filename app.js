@@ -1,9 +1,8 @@
 const goals = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500];
-let changeLog = [];
+let history = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     loadProgress();
-    updateChangeLog();
 });
 
 function calculateTotal() {
@@ -28,6 +27,48 @@ function calculateTotal() {
             goalElement.classList.remove('achieved');
         }
     });
+
+    addHistoryEntry(`Gesamtbetrag berechnet: ${totalAmount.toFixed(2)} CHF`);
+}
+
+function withdrawAmount() {
+    const totalAmountElement = document.getElementById('totalAmount');
+    let totalAmount = parseFloat(totalAmountElement.innerText);
+    const amountToWithdraw = prompt("Betrag eingeben, der entnommen werden soll:");
+
+    if (amountToWithdraw !== null && !isNaN(amountToWithdraw) && amountToWithdraw > 0) {
+        totalAmount -= parseFloat(amountToWithdraw);
+        totalAmountElement.innerText = totalAmount.toFixed(2);
+        addHistoryEntry(`Betrag entnommen: ${amountToWithdraw} CHF`);
+        updateGoals(totalAmount);
+    }
+}
+
+function addHistoryEntry(entry) {
+    const date = new Date();
+    const timestamp = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+    const historyEntry = `${timestamp} - ${entry}`;
+    history.push(historyEntry);
+    updateHistoryDisplay();
+}
+
+function updateHistoryDisplay() {
+    const historyList = document.getElementById('historyList');
+    historyList.innerHTML = '';
+    history.forEach(entry => {
+        const li = document.createElement('li');
+        li.textContent = entry;
+        historyList.appendChild(li);
+    });
+}
+
+function toggleHistory() {
+    const historyContent = document.getElementById('historyContent');
+    if (historyContent.style.display === 'none') {
+        historyContent.style.display = 'block';
+    } else {
+        historyContent.style.display = 'none';
+    }
 }
 
 function saveProgress() {
@@ -40,7 +81,7 @@ function saveProgress() {
         franken2: document.getElementById('franken2').value,
         franken5: document.getElementById('franken5').value,
         totalAmount: document.getElementById('totalAmount').innerText,
-        changeLog: changeLog
+        history: history
     };
     const progressString = JSON.stringify(progress);
     const date = new Date();
@@ -71,9 +112,9 @@ function loadProgress() {
                 document.getElementById('franken2').value = progress.franken2;
                 document.getElementById('franken5').value = progress.franken5;
                 document.getElementById('totalAmount').innerText = progress.totalAmount;
-                changeLog = progress.changeLog || [];
+                history = progress.history || [];
                 calculateTotal(); // Update the goals based on loaded progress
-                updateChangeLog();
+                updateHistoryDisplay();
             };
             reader.readAsText(file);
         }
@@ -81,39 +122,13 @@ function loadProgress() {
     input.click();
 }
 
-function withdrawAmount() {
-    const amount = parseFloat(prompt("Geben Sie den Betrag ein, den Sie entnehmen möchten:"));
-    if (!isNaN(amount) && amount > 0) {
-        const totalElement = document.getElementById('totalAmount');
-        let totalAmount = parseFloat(totalElement.innerText);
-        if (amount <= totalAmount) {
-            totalAmount -= amount;
-            totalElement.innerText = totalAmount.toFixed(2);
-            goals.forEach(goal => {
-                const goalElement = document.getElementById(`goal-${goal}`);
-                if (totalAmount >= goal) {
-                    goalElement.classList.add('achieved');
-                } else {
-                    goalElement.classList.remove('achieved');
-                }
-            });
-            addToChangeLog(`Entnommen: ${amount.toFixed(2)} CHF`);
+function updateGoals(totalAmount) {
+    goals.forEach(goal => {
+        const goalElement = document.getElementById(`goal-${goal}`);
+        if (totalAmount >= goal) {
+            goalElement.classList.add('achieved');
         } else {
-            alert("Der Betrag überschreitet den verfügbaren Gesamtbetrag.");
+            goalElement.classList.remove('achieved');
         }
-    } else {
-        alert("Bitte geben Sie einen gültigen Betrag ein.");
-    }
-}
-
-function addToChangeLog(message) {
-    const date = new Date();
-    const timestamp = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
-    changeLog.push(`${timestamp}: ${message}`);
-    updateChangeLog();
-}
-
-function updateChangeLog() {
-    const changeLogContainer = document.getElementById('changeLog');
-    changeLogContainer.innerHTML = changeLog.map(entry => `<p>${entry}</p>`).join('');
+    });
 }

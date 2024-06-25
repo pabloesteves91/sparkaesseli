@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Sparkässeli</h1>
+        <h1><img src="logo.png" alt="Logo" class="logo"> Sparkässeli</h1>
         <div class="coin-inputs">
             <div class="input-group">
                 <label for="rappen5">5 Rappen:</label>
@@ -41,10 +41,8 @@
                 <input type="number" id="franken5" value="0">
             </div>
         </div>
-        <div class="buttons">
-            <button class="btn calculate-btn" onclick="calculateTotal()">Berechne Betrag</button>
-            <button class="btn withdraw-btn" onclick="withdrawAmount()">Betrag entnehmen</button>
-        </div>
+        <button class="btn calculate-btn" onclick="calculateTotal()">Berechne Betrag</button>
+        <button class="btn withdraw-btn" onclick="withdrawAmount()">Betrag entnehmen</button>
         <h2>Gesamtbetrag: <span id="totalAmount">0</span> CHF</h2>
         <div class="buttons">
             <button class="btn save-btn" onclick="saveProgress()">Fortschritt speichern</button>
@@ -67,9 +65,12 @@
                 <td id="goal-500">500 CHF</td>
             </tr>
         </table>
-        <div class="change-log">
-            <button class="btn toggle-log" onclick="toggleChangeLog()">Änderungsverlauf <span id="toggleArrow">▼</span></button>
-            <div id="changeLog" class="log-entries hidden"></div>
+        <div class="history">
+            <h2>Änderungsverlauf</h2>
+            <button onclick="toggleHistory()">Verlauf anzeigen</button>
+            <div id="historyContent" style="display:none;">
+                <ul id="historyList"></ul>
+            </div>
         </div>
     </div>
     <script src="app.js"></script>

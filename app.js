@@ -66,4 +66,12 @@ function loadProgress() {
                 document.getElementById('rappen50').value = progress.rappen50;
                 document.getElementById('franken1').value = progress.franken1;
                 document.getElementById('franken2').value = progress.franken2;
-                document.getElementById​⬤
+                document.getElementById('franken5').value = progress.franken5;
+                document.getElementById('totalAmount').innerText = progress.totalAmount;
+                calculateTotal(); // Update the goals based on loaded progress
+            };
+            reader.readAsText(file);
+        }
+    };
+    input.click();
+}

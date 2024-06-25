@@ -17,15 +17,16 @@ body {
 .container {
     max-width: 600px;
     width: 100%;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    padding: 20px;
+    padding: 30px 20px;
+    text-align: center;
 }
 
 h1 {
     margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 28px;
     color: #007bff;
     text-align: center;
 }
@@ -33,7 +34,7 @@ h1 {
 .coin-inputs {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     margin-bottom: 20px;
 }
 
@@ -42,22 +43,28 @@ h1 {
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
+    border-bottom: 1px solid #eee;
 }
 
 .input-group label {
-    font-size: 16px;
+    font-size: 18px;
     color: #333;
     flex: 1;
 }
 
 .input-group input {
-    width: 100px;
-    padding: 8px;
-    border: 1px solid #ccc;
+    width: 120px;
+    padding: 10px;
+    border: 1px solid #ddd;
     border-radius: 5px;
     text-align: right;
     font-size: 16px;
     color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #007bff;
 }
 
 .btn {
@@ -69,8 +76,8 @@ h1 {
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    margin-top: 10px;
-    font-size: 16px;
+    margin-top: 20px;
+    font-size: 18px;
     transition: background-color 0.3s ease;
 }
 
@@ -79,10 +86,14 @@ h1 {
 }
 
 h2 {
-    font-size: 20px;
+    font-size: 22px;
     color: #333;
-    margin: 20px 0;
+    margin: 25px 0 10px;
     text-align: center;
+}
+
+#totalAmount {
+    color: #007bff;
 }
 
 #savingsGoals {
@@ -93,15 +104,17 @@ h2 {
 }
 
 .goal {
-    padding: 10px;
+    padding: 15px;
     background-color: #e0e0e0;
     border-radius: 5px;
-    flex: 1 1 calc(33.33% - 20px);
+    flex: 1 1 calc(50% - 20px);
     text-align: center;
-    transition: background-color 0.3s ease;
+    font-size: 18px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .goal.achieved {
     background-color: rgba(255, 215, 0, 0.5);
     border: 1px solid #ffd700;
+    transform: scale(1.05);
 }

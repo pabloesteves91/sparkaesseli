@@ -1,3 +1,5 @@
+const goals = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500];
+
 document.addEventListener('DOMContentLoaded', () => {
     loadProgress();
 });
@@ -15,6 +17,15 @@ function calculateTotal() {
         (rappen50 * 0.5) + (franken1 * 1) + (franken2 * 2) + (franken5 * 5);
 
     document.getElementById('totalAmount').innerText = totalAmount.toFixed(2);
+
+    goals.forEach(goal => {
+        const goalElement = document.getElementById(`goal-${goal}`);
+        if (totalAmount >= goal) {
+            goalElement.classList.add('achieved');
+        } else {
+            goalElement.classList.remove('achieved');
+        }
+    });
 }
 
 function saveProgress() {
@@ -55,12 +66,4 @@ function loadProgress() {
                 document.getElementById('rappen50').value = progress.rappen50;
                 document.getElementById('franken1').value = progress.franken1;
                 document.getElementById('franken2').value = progress.franken2;
-                document.getElementById('franken5').value = progress.franken5;
-                document.getElementById('totalAmount').innerText = progress.totalAmount;
-                calculateTotal(); // Update the goals based on loaded progress
-            };
-            reader.readAsText(file);
-        }
-    };
-    input.click();
-}
+                document.getElementById​⬤
